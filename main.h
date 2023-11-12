@@ -8,16 +8,26 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <stdbool.h>
 
-void executeCommand(char *command, char *delim);
+int _strlen(char* word);
+char* _strdup(char* word);
+
+char** CreateCommandArray(char* const command, char* delim);
+void freeTokens(char** tokens, int tokenCount);
+int getStringArraySize(char** array);
+
+void executeCommand(char ** Argv);
 char* removeNewline(char *str);
 int getArgumentNum(char* content,char* delim);
-char* get_Location(char const *command);
-void localCommands(const char*  commad);
+char* get_Location(char* command);
+bool localCommands(char*  commad);
+int _getline(char **buffer, int bufferSize);
 
 typedef struct {
     size_t bufferSize;
     char *content;
 } Buffer;
+
 
 #endif
