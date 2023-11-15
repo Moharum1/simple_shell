@@ -1,6 +1,6 @@
 #include "main.h"
 
-int main()
+int main(void)
 {
 	/*declration for reading an input from the user*/
 	Buffer buffer;
@@ -37,8 +37,8 @@ int main()
 
 			exe(buffer.content, delim);
 		}
-		free(buffer.content);
 	}
+	free(buffer.content);
 	return (0);
 }
 
