@@ -17,7 +17,7 @@ char *_strdup(char *word);
 void _strcpy(char *destination, char *source);
 void _strcat(char *content, char *addition);
 char *_strchr(char *str, char character);
-int _strcmp(const char* str1, const char* str2);
+int _strcmp(const char *str1, const char *str2);
 
 char **CreateCommandArray(char *const command, char *delim);
 void freeTokens(char **tokens, int tokenCount);
