@@ -8,12 +8,13 @@
 char **CreateCommandArray(char *command, char *delim)
 {
 	int tokenCount;
+	int i;
 	char **tokens;
 	char *token;
 
 	tokenCount = 1;
 
-	for (int i = 0; command[i] != '\0'; i++)
+	for (i = 0; command[i] != '\0'; i++)
 	{
 		if (command[i] == *delim)
 		{
@@ -31,7 +32,7 @@ char **CreateCommandArray(char *command, char *delim)
 
 	token = strtok(command, delim);
 
-	int i = 0;
+	i = 0;
 
 	while (token != NULL)
 	{
@@ -57,7 +58,8 @@ char **CreateCommandArray(char *command, char *delim)
 */
 void freeTokens(char **tokens, int tokenCount)
 {
-	for (int i = 0; i < tokenCount; i++)
+	int i;
+	for (i = 0; i < tokenCount; i++)
 	{
 		free(tokens[i]);
 	}
@@ -71,9 +73,10 @@ void freeTokens(char **tokens, int tokenCount)
 */
 int getStringArraySize(char **array)
 {
+	int i;
 	int counter = 0;
 
-	for (int i = 0; array[i] != NULL; i++)
+	for (i = 0; array[i] != NULL; i++)
 	{
 		counter++;
 	}

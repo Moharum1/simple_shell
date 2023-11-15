@@ -4,10 +4,11 @@ int main(void)
 {
 	/*declration for reading an input from the user*/
 	Buffer buffer;
+	char *delim;
 
 	buffer.bufferSize = 30;
 
-	char delim[2] = " ";
+	delim = " ";
 
 	buffer.content = (char *)malloc(buffer.bufferSize * sizeof(char));
 

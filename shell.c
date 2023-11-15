@@ -9,8 +9,10 @@
 */
 int getArgumentNum(char *content, char *delim)
 {
+	int counter;
+
 	strtok(content, delim);
-	int counter = 0;
+	counter = 1;
 
 	while (strtok(NULL, delim) != NULL)
 	{
@@ -107,6 +109,8 @@ char *get_Location(char *command)
 */
 bool localCommands(char *command)
 {
+	char **env;
+
 	if (command == NULL)
 	{
 		printf("Command is NULL.\n");
@@ -124,7 +128,7 @@ bool localCommands(char *command)
 			printf("Environment variables not found.\n");
 			return (false);
 		}
-		for (char **env = environ; *env != NULL; env++)
+		for (env = environ; *env != NULL; env++)
 		{
 			printf("%s\n", *env);
 		}

@@ -26,9 +26,10 @@ char *_strchr(char *str, char character)
  */
 int _strlen(char *word)
 {
+	int i;
 	int counter = 0;
 
-	for (int i = 0; word[i] != '\0'; i++)
+	for (i = 0; word[i] != '\0'; i++)
 	{
 		counter++;
 	}
@@ -44,6 +45,7 @@ int _strlen(char *word)
 char *_strdup(char *word)
 {
 	int wordLen;
+	int i;
 	char *copy;
 
 	wordLen = _strlen(word);
@@ -54,7 +56,7 @@ char *_strdup(char *word)
 		return (NULL);
 	}
 
-	for (int i = 0; i < wordLen; i++)
+	for (i = 0; i < wordLen; i++)
 	{
 		copy[i] = word[i];
 	}
