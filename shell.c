@@ -41,7 +41,7 @@ void executeCommand(char **Argv)
 */
 char *removeNewline(char *str)
 {
-	char *newline_position = strchr(str, '\n');
+	char *newline_position = _strchr(str, '\n');
 
 	if (newline_position != NULL)
 	{
@@ -70,8 +70,8 @@ char *get_Location(char *command)
 	pathToken = strtok(pathContent, ":");
 	while (pathToken != NULL)
 	{
-		size_t dirLen = strlen(pathToken);
-		size_t commandLen = strlen(command);
+		size_t dirLen = _strlen(pathToken);
+		size_t commandLen = _strlen(command);
 		/*Allocate memory to store the string that we will return.*/
 		filePath = (char *)malloc((dirLen + commandLen + 2) * sizeof(char));
 		if (filePath == NULL)
@@ -113,11 +113,11 @@ bool localCommands(char *command)
 		return (false);
 	}
 
-	if (strcmp(command, "exit") == 0)
+	if (_strcmp(command, "exit") == 0)
 	{
 		exit(EXIT_SUCCESS);
 	}
-	else if (strcmp(command, "env") == 0)
+	else if (_strcmp(command, "env") == 0)
 	{
 		if (environ == NULL)
 		{

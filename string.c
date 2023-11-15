@@ -1,5 +1,24 @@
 #include "main.h"
 
+
+/**
+ * _strchr - get the position of a char in string
+ * @str: the string you will use for search
+ * @character: the char you want to find
+ * @return: pointer to the char if exist
+ */
+char *_strchr(char *str, char character)
+{
+	while (*str != '\0')
+	{
+		if (*str == character)
+			return (str);
+		str++;
+	}
+
+	return (NULL);
+}
+
 /**
  * _strlen - get the lenght of a string
  * @word: the word you want to get it's length
