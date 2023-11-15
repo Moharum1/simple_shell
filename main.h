@@ -9,25 +9,31 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <stdbool.h>
+#include <stdbool.h>
 
-int _strlen(char* word);
-char* _strdup(char* word);
+void exe(char *content, char *delim);
 
-char** CreateCommandArray(char* const command, char* delim);
-void freeTokens(char** tokens, int tokenCount);
-int getStringArraySize(char** array);
+int _strlen(char *word);
+char *_strdup(char *word);
+void _strcpy(char *destination, char *source);
+void _strcat(char *content, char *addition);
 
-void executeCommand(char ** Argv);
-char* removeNewline(char *str);
-int getArgumentNum(char* content,char* delim);
-char* get_Location(char* command);
-bool localCommands(char*  commad);
+char **CreateCommandArray(char *const command, char *delim);
+void freeTokens(char **tokens, int tokenCount);
+int getStringArraySize(char **array);
+
+void executeCommand(char **Argv);
+char *removeNewline(char *str);
+int getArgumentNum(char *content, char *delim);
+char *get_Location(char *command);
+bool localCommands(char *commad);
 int _getline(char **buffer, int bufferSize);
 
-typedef struct {
-    size_t bufferSize;
-    char *content;
+typedef struct
+{
+	size_t bufferSize;
+	char *content;
 } Buffer;
 
-
+extern char **environ;
 #endif

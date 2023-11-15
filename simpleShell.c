@@ -1,74 +1,75 @@
 #include "main.h"
-#include <stdbool.h>
 
-int main(){
+int main(void)
+{
+	/*declration for reading an input from the user*/
+	Buffer buffer;
 
-    /*
-        declration for reading an input from the user
-    */
-    Buffer buffer;
-    buffer.bufferSize = 30;
-    bool from_pipe = false;
+	buffer.bufferSize = 30;
 
-    char** tokens;
-    char delim[2] = " ";
+	char delim[2] = " ";
 
+	buffer.content = (char *)malloc(buffer.bufferSize * sizeof(char));
 
-    int status;
-    pid_t child_pid;
+	if (buffer.content == NULL)
+	{
+		perror("Unable to allocate buffer");
+		exit(1);
+	}
 
-    
+	if (isatty(STDIN_FILENO) == 0)
+	{
+		getline(&(buffer.content), &(buffer.bufferSize), stdin);
+		exe(buffer.content, delim);
+	}
+	else
+	{
+		while (1)
+		{
+			printf("$ ");
+			getline(&(buffer.content), &(buffer.bufferSize), stdin);
 
-    buffer.content = (char *)malloc(buffer.bufferSize * sizeof(char));
+			if (feof(stdin))
+			{
+				printf("exit\n");
+				break;
+			}
+			exe(buffer.content, delim);
+		}
+	}
+	free(buffer.content);
+	return (0);
+}
 
-    if (buffer.content == NULL) {
-        perror("Unable to allocate buffer");
-        exit(1);
-    }
-    
-    while(1  && !from_pipe ){
+void exe(char *content, char *delim)
+{
+	int status;
+	pid_t child_pid;
+	char **tokens;
 
-        if (isatty(STDIN_FILENO) == 0){
-            from_pipe = true;
-        }
+	tokens = CreateCommandArray(removeNewline(content), delim);
+	tokens[0] = get_Location(tokens[0]);
 
-        printf("$ ");
-        getline(&(buffer.content), &(buffer.bufferSize),stdin);
+		if (tokens[0] != NULL)
+		{
+			if (!localCommands(tokens[0]))
+			{
+				child_pid = fork();
 
+				if (child_pid == -1)
+				{
+					perror("Error:");
+					return;
+				}
 
-        if (feof(stdin)){
-            printf("exit\n");
-            break;
-        }
-        
-        tokens = CreateCommandArray(removeNewline(buffer.content), delim);
-        tokens[0] = get_Location(tokens[0]);
+				if (child_pid == 0)
+					executeCommand(tokens);
+			}
+		}
+		else
+			perror("Error");
 
-        if(tokens[0] != NULL){
-            if (!localCommands(tokens[0])){
-                child_pid = fork();
+		wait(&status);
+		freeTokens(tokens, getStringArraySize(tokens));
 
-                if (child_pid == -1)
-                {
-                    perror("Error:");
-                    return (1);
-                }
-
-                if (child_pid == 0){
-                    executeCommand(tokens);            
-                }
-            }
-        }else{
-            perror("Error");
-        }
-        
-
-
-        
-        wait(&status);
-        freeTokens(tokens, getStringArraySize(tokens));   
-        
-    }
-    free(buffer.content);
-    return(0);
 }
