@@ -27,13 +27,13 @@ int main(void)
 		while (1)
 		{
 			printf("$ ");
-			getline(&(buffer.content), &(buffer.bufferSize), stdin);
 
-			if (feof(stdin))
+			if (getline(&(buffer.content), &(buffer.bufferSize), stdin) == EOF)
 			{
 				printf("exit\n");
-				break;
-			}
+				exit(EXIT_SUCCESS);
+			};
+
 			exe(buffer.content, delim);
 		}
 	}
