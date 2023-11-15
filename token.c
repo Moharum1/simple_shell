@@ -22,7 +22,7 @@ char **CreateCommandArray(char *command, char *delim)
 		}
 	}
 
-	tokens = (char **)malloc(tokenCount * sizeof(char *));
+	tokens = (char **)malloc((tokenCount + 1) * sizeof(char *));
 
 	if (tokens == NULL)
 	{
@@ -31,7 +31,6 @@ char **CreateCommandArray(char *command, char *delim)
 	}
 
 	token = strtok(command, delim);
-
 	i = 0;
 
 	while (token != NULL)
@@ -46,6 +45,7 @@ char **CreateCommandArray(char *command, char *delim)
 		token = strtok(NULL, delim);
 		i++;
 	}
+	tokens[i] = NULL;
 
 	return (tokens);
 }
@@ -59,6 +59,7 @@ char **CreateCommandArray(char *command, char *delim)
 void freeTokens(char **tokens, int tokenCount)
 {
 	int i;
+
 	for (i = 0; i < tokenCount; i++)
 	{
 		free(tokens[i]);

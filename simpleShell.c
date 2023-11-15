@@ -32,13 +32,14 @@ int main(void)
 			if (getline(&(buffer.content), &(buffer.bufferSize), stdin) == EOF)
 			{
 				printf("exit\n");
+				free(buffer.content);
 				exit(EXIT_SUCCESS);
 			};
 
 			exe(buffer.content, delim);
 		}
+		free(buffer.content);
 	}
-	free(buffer.content);
 	return (0);
 }
 
@@ -47,9 +48,13 @@ void exe(char *content, char *delim)
 	int status;
 	pid_t child_pid;
 	char **tokens;
+	char *mainCommand;
 
 	tokens = CreateCommandArray(removeNewline(content), delim);
-	tokens[0] = get_Location(tokens[0]);
+	mainCommand = _strdup(tokens[0]);
+	free(tokens[0]);
+	tokens[0] = get_Location(mainCommand);
+	free(mainCommand);
 
 		if (tokens[0] != NULL)
 		{
@@ -70,8 +75,8 @@ void exe(char *content, char *delim)
 		else
 			perror("Error");
 
-		wait(&status);
-		freeTokens(tokens, getStringArraySize(tokens));
+	wait(&status);
+	freeTokens(tokens, getStringArraySize(tokens));
 
 }
 

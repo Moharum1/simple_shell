@@ -49,7 +49,7 @@ char *_strdup(char *word)
 	char *copy;
 
 	wordLen = _strlen(word);
-	copy = (char *)malloc((wordLen) * sizeof(char));
+	copy = (char *)malloc((wordLen + 1) * sizeof(char));
 
 	if (copy == NULL)
 	{

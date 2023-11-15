@@ -22,6 +22,7 @@ int _strcmp(const char *str1, const char *str2);
 char **CreateCommandArray(char *const command, char *delim);
 void freeTokens(char **tokens, int tokenCount);
 int getStringArraySize(char **array);
+char* _getenv(const char* var_name);
 
 void executeCommand(char **Argv);
 char *removeNewline(char *str);

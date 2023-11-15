@@ -67,8 +67,10 @@ char *get_Location(char *command)
 	if (pathContent == NULL)
 	{
 		printf("PATH environment variable not found.\n");
+        free(pathContent);
 		return (NULL);
 	}
+
 	pathToken = strtok(pathContent, ":");
 	while (pathToken != NULL)
 	{
@@ -90,9 +92,11 @@ char *get_Location(char *command)
 			free(pathContent);
 			return (filePath);
 		}
+        
 		free(filePath);
 		pathToken = strtok(NULL, ":");
 	}
+
 	free(pathContent);
 	/* Check if the command in current dir*/
 	if (stat(command, &buffer) == 0)
