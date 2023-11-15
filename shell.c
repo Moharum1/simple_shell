@@ -109,7 +109,7 @@ bool localCommands(char *command)
 {
 	if (command == NULL)
 	{
-		fprintf(stderr, "Command is NULL.\n");
+		printf("Command is NULL.\n");
 		return (false);
 	}
 
@@ -121,7 +121,7 @@ bool localCommands(char *command)
 	{
 		if (environ == NULL)
 		{
-			fprintf(stderr, "Environment variables not found.\n");
+			printf("Environment variables not found.\n");
 			return (false);
 		}
 		for (char **env = environ; *env != NULL; env++)
@@ -133,3 +133,4 @@ bool localCommands(char *command)
 	}
 	return (false);
 }
+

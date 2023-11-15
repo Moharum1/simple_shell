@@ -79,3 +79,4 @@ int getStringArraySize(char **array)
 	}
 	return (counter);
 }
+

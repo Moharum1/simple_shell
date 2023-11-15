@@ -104,3 +104,4 @@ void _strcat(char *content, char *addition)
 
 	*content = '\0';
 }
+
