@@ -20,8 +20,8 @@ int main(void)
 
 	if (isatty(STDIN_FILENO) == 0)
 	{
-		getline(&(buffer.content), &(buffer.bufferSize), stdin);
-		exe(buffer.content, delim);
+		while (getline(&(buffer.content), &(buffer.bufferSize), stdin) != EOF)
+			exe(buffer.content, delim);
 	}
 	else
 	{
@@ -50,29 +50,33 @@ void exe(char *content, char *delim)
 	char *mainCommand;
 
 	tokens = CreateCommandArray(removeNewline(content), delim);
+
+	if (tokens[0] == NULL)
+	{
+		freeTokens(tokens, getStringArraySize(tokens));
+		return;
+	}
+
 	mainCommand = _strdup(tokens[0]);
 	free(tokens[0]);
 	tokens[0] = get_Location(mainCommand);
 	free(mainCommand);
 
-		if (tokens[0] != NULL)
+	if (!localCommands(tokens[0]))
+	{
+		child_pid = fork();
+
+		if (child_pid == -1)
 		{
-			if (!localCommands(tokens[0]))
-			{
-				child_pid = fork();
-
-				if (child_pid == -1)
-				{
-					perror("hsh");
-					return;
-				}
-
-				if (child_pid == 0)
-					executeCommand(tokens);
-			}
-		}
-		else
 			perror("hsh");
+			return;
+		}
+
+		if (child_pid == 0)
+			executeCommand(tokens);
+	}
+	else
+		perror("hsh");
 
 	wait(&status);
 	freeTokens(tokens, getStringArraySize(tokens));
