@@ -64,7 +64,7 @@ char *get_Location(char *command)
 
 	if (pathContent == NULL)
 	{
-		fprintf(stderr, "PATH environment variable not found.\n");
+		printf("PATH environment variable not found.\n");
 		return (NULL);
 	}
 	pathToken = strtok(pathContent, ":");
