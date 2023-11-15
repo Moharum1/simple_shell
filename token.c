@@ -46,7 +46,6 @@ char **CreateCommandArray(char *command, char *delim)
 		i++;
 	}
 	tokens[i] = NULL;
-
 	return (tokens);
 }
 
