@@ -14,7 +14,7 @@ int main()
 
 	if (buffer.content == NULL)
 	{
-		perror(argv[0]);
+		perror("hsh");
 		exit(1);
 	}
 
