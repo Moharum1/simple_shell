@@ -1,6 +1,6 @@
 #include "main.h"
 
-int main(void)
+int main()
 {
 	/*declration for reading an input from the user*/
 	Buffer buffer;
@@ -14,7 +14,7 @@ int main(void)
 
 	if (buffer.content == NULL)
 	{
-		perror("Unable to allocate buffer");
+		perror(argv[0]);
 		exit(1);
 	}
 
@@ -31,7 +31,6 @@ int main(void)
 
 			if (getline(&(buffer.content), &(buffer.bufferSize), stdin) == EOF)
 			{
-				printf("exit\n");
 				free(buffer.content);
 				exit(EXIT_SUCCESS);
 			};
@@ -64,7 +63,7 @@ void exe(char *content, char *delim)
 
 				if (child_pid == -1)
 				{
-					perror("Error:");
+					perror("hsh");
 					return;
 				}
 
@@ -73,7 +72,7 @@ void exe(char *content, char *delim)
 			}
 		}
 		else
-			perror("Error");
+			perror("hsh");
 
 	wait(&status);
 	freeTokens(tokens, getStringArraySize(tokens));

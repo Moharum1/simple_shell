@@ -26,7 +26,7 @@ char **CreateCommandArray(char *command, char *delim)
 
 	if (tokens == NULL)
 	{
-		perror("Error in malloc");
+		perror("hsh");
 		exit(EXIT_FAILURE);
 	}
 
@@ -39,7 +39,7 @@ char **CreateCommandArray(char *command, char *delim)
 
 		if (tokens[i] == NULL)
 		{
-			perror("Error in strdup");
+			perror("hsh");
 			exit(EXIT_FAILURE);
 		}
 		token = strtok(NULL, delim);

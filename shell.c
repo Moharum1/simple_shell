@@ -31,7 +31,7 @@ void executeCommand(char **Argv)
 {
 	if (execve(Argv[0], Argv, environ) == -1)
 	{
-		perror("Error: (execve)");
+		perror("hsh");
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -78,7 +78,7 @@ char *get_Location(char *command)
 		filePath = (char *)malloc((dirLen + commandLen + 2) * sizeof(char));
 		if (filePath == NULL)
 		{
-			perror("malloc");
+			perror("hsh");
 			exit(EXIT_FAILURE);
 		}
 		_strcpy(filePath, pathToken);
