@@ -29,11 +29,14 @@ int getArgumentNum(char *content, char *delim)
 */
 void executeCommand(char **Argv)
 {
-	if (execve(Argv[0], Argv, environ) == -1)
+	int state = execve(Argv[0], Argv, environ);
+
+	if (state == -1)
 	{
 		perror("hsh");
-		exit(EXIT_SUCCESS);
+		exit(state);
 	}
+
 }
 
 /**
@@ -107,24 +110,20 @@ char *get_Location(char *command)
 * @command: the local command you want to execute
 * @return : a bool statement if the command exists or not
 */
-bool localCommands(char *command)
+bool localCommands(char **argv, char *buffer)
 {
 	char **env;
 
-	if (command == NULL)
+	if (argv[0] == NULL)
 	{
 		return (false);
 	}
 
-	if (_strcmp(command, "exit") == 0)
-	{
-		exit(EXIT_SUCCESS);
-	}
-	else if (_strcmp(command, "env") == 0)
+	if (_strcmp(argv[0], "env") == 0)
 	{
 		if (environ == NULL)
 		{
-			return (false);
+			return (true);
 		}
 		for (env = environ; *env != NULL; env++)
 		{
@@ -132,6 +131,12 @@ bool localCommands(char *command)
 		}
 
 		return (true);
+	}
+	else if (_strcmp(argv[0], "exit") == 0)
+	{
+		free(buffer);
+		freeTokens(argv, getStringArraySize(argv));
+		exit(EXIT_SUCCESS);
 	}
 	return (false);
 }

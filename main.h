@@ -27,7 +27,7 @@ void executeCommand(char **Argv);
 char *removeNewline(char *str);
 int getArgumentNum(char *content, char *delim);
 char *get_Location(char *command);
-bool localCommands(char *commad);
+bool localCommands(char **argv, char *buffer);
 int _getline(char **buffer, int bufferSize);
 
 typedef struct

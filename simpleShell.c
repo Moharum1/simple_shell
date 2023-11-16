@@ -22,6 +22,7 @@ int main(void)
 	{
 		while (getline(&(buffer.content), &(buffer.bufferSize), stdin) != EOF)
 			exe(buffer.content, delim);
+
 	}
 	else
 	{
@@ -57,13 +58,14 @@ void exe(char *content, char *delim)
 		return;
 	}
 
-	mainCommand = _strdup(tokens[0]);
-	free(tokens[0]);
-	tokens[0] = get_Location(mainCommand);
-	free(mainCommand);
-
-	if (!localCommands(tokens[0]))
+	if (localCommands(tokens, content) == false)
 	{
+
+		mainCommand = _strdup(tokens[0]);
+		free(tokens[0]);
+		tokens[0] = get_Location(mainCommand);
+		free(mainCommand);
+
 		child_pid = fork();
 
 		if (child_pid == -1)
